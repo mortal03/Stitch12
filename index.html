@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Begums Stitch & Style - Dankuni</title>
+    <style>
+        :root {
+            --primary: #e91e63; /* Pink theme */
+            --secondary: #25D366; /* WhatsApp/Call Green */
+            --dark: #333;
+            --light: #f4f4f4;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fafafa;
+        }
+
+        /* Header Section */
+        header {
+            background-color: white;
+            padding: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            text-align: center;
+        }
+
+        h1 {
+            margin: 0;
+            color: var(--primary);
+            font-size: 1.5rem;
+        }
+
+        .subtitle {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 5px;
+        }
+
+        /* Contact Bar */
+        .contact-bar {
+            background-color: var(--dark);
+            color: white;
+            text-align: center;
+            padding: 10px;
+            font-size: 0.9rem;
+        }
+
+        .contact-bar a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        /* Filters/Categories */
+        .categories {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            padding: 15px;
+            background: #fff;
+            overflow-x: auto;
+        }
+
+        .cat-btn {
+            padding: 8px 16px;
+            border: 1px solid var(--primary);
+            background: none;
+            color: var(--primary);
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            white-space: nowrap;
+        }
+
+        .cat-btn.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        /* Product Grid */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* 2 columns on mobile */
+            gap: 15px;
+        }
+
+        @media (min-width: 768px) {
+            .grid {
+                grid-template-columns: repeat(4, 1fr); /* 4 columns on desktop */
+            }
+        }
+
+        /* Product Card */
+        .card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            transition: transform 0.2s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-img-container {
+            height: 250px; 
+            background-color: #eee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; 
+        }
+
+        .card-details {
+            padding: 12px;
+            text-align: center;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .product-title {
+            font-size: 1rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: var(--dark);
+        }
+
+        .collection-tag {
+            font-size: 0.75rem;
+            color: #888;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        /* Price Styling */
+        .price-area {
+            margin-bottom: 12px;
+        }
+
+        .sale-price {
+            color: var(--primary);
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        /* Call Button */
+        .call-btn {
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            padding: 10px;
+            width: 100%;
+            border-radius: 5px;
+            font-weight: bold;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            cursor: pointer;
+            box-sizing: border-box;
+        }
+
+        .call-btn:hover {
+            background-color: #1ebe57;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Begums Stitch & Style</h1>
+        <div class="subtitle">Ganapati Suit Specialist</div>
+    </header>
+
+    <div class="contact-bar">
+        Questions? Call us directly: <a href="tel:+919163270410">+91 9163270410</a>
+    </div>
+
+    <div class="categories">
+        <button class="cat-btn active" onclick="filterSelection('all')">All</button>
+        <button class="cat-btn" onclick="filterSelection('payal')">Payal (Patiyala)</button>
+        <button class="cat-btn" onclick="filterSelection('gouri')">Gouri (Suits)</button>
+        <button class="cat-btn" onclick="filterSelection('bella')">Bella (Pants)</button>
+    </div>
+
+    <div class="container">
+        <div class="grid" id="product-grid">
+            </div>
+    </div>
+
+    <script>
+        const products = [
+            // --- Payal Collection ---
+            { id: '2431', type: 'payal', name: 'Payal Design 2431' },
+            { id: '2432', type: 'payal', name: 'Payal Design 2432' },
+            { id: '2433', type: 'payal', name: 'Payal Design 2433' },
+            { id: '2434', type: 'payal', name: 'Payal Design 2434' },
+            { id: '2435', type: 'payal', name: 'Payal Design 2435' },
+            
+            // --- Gouri Collection ---
+            { id: '2401', type: 'gouri', name: 'Gouri Design 2401' },
+            { id: '2402', type: 'gouri', name: 'Gouri Design 2402' },
+            { id: '2403', type: 'gouri', name: 'Gouri Design 2403' },
+            { id: '2404', type: 'gouri', name: 'Gouri Design 2404' },
+            { id: '2405', type: 'gouri', name: 'Gouri Design 2405' },
+
+             // --- Bella Collection ---
+            { id: '701', type: 'bella', name: 'Bella Pant 701' },
+            { id: '702', type: 'bella', name: 'Bella Pant 702' },
+            { id: '703', type: 'bella', name: 'Bella Pant 703' },
+            { id: '704', type: 'bella', name: 'Bella Pant 704' },
+            { id: '705', type: 'bella', name: 'Bella Pant 705' }
+        ];
+
+        function renderProducts(filter) {
+            const grid = document.getElementById('product-grid');
+            grid.innerHTML = ''; 
+
+            products.forEach(product => {
+                if (filter === 'all' || product.type === filter) {
+                    const card = document.createElement('div');
+                    card.className = 'card';
+                    
+                    // This generates the temporary colored boxes so your code runs without crashing
+                    const imgSrc = `https://placehold.co/300x400/ffebee/e91e63?text=${product.name.replace(/ /g, '+')}`;
+                    
+                    card.innerHTML = `
+                        <div class="card-img-container">
+                            <img src="${imgSrc}" alt="${product.name}">
+                        </div>
+                        <div class="card-details">
+                            <div>
+                                <div class="collection-tag">${product.type.toUpperCase()} COLLECTION</div>
+                                <div class="product-title">${product.name}</div>
+                                <div class="price-area">
+                                    <span class="sale-price">₹525</span>
+                                </div>
+                            </div>
+                            <a href="tel:+919163270410" class="call-btn">
+                                📞 Call
+                            </a>
+                        </div>
+                    `;
+                    grid.appendChild(card);
+                }
+            });
+        }
+
+        function filterSelection(category) {
+            renderProducts(category);
+            const btns = document.getElementsByClassName("cat-btn");
+            for (let i = 0; i < btns.length; i++) {
+                btns[i].classList.remove("active");
+                if(btns[i].innerText.toLowerCase().includes(category) || (category === 'all' && btns[i].innerText === 'All')) {
+                    btns[i].classList.add("active");
+                }
+            }
+        }
+
+        // Run this when the page opens
+        renderProducts('all');
+    </script>
+</body>
+</html>
